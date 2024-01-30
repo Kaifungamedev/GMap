@@ -1,5 +1,5 @@
 @icon("res://addons/gmap/icons/doclogo.svg")
-class_name gmapInfo extends Resource
+class_name gmapInfo extends gResource
 @export var name: String
 @export var author: String
 @export var version: Array[float]

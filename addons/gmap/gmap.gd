@@ -1,12 +1,13 @@
+@icon("icons/doclogo.svg")
 class_name gmap extends Node
 var pckPacker := PCKPacker.new()
-var filedock := EditorInterface.get_resource_filesystem()
+#var filedock := EditorInterface.get_resource_filesystem()
 
 
 static func creatmap(map: gmapInfo):
 	var dir = DirAccess.open("res://")
-	dir.make_dir_recursive("Maps/{Name}".format({Name = map.name}))
-	ResourceSaver.save(map, "Maps/{Name}/map.tres".format({Name = map.name}))
+	dir.make_dir_recursive("UserMaps/{Name}".format({Name = map.name}))
+	ResourceSaver.save(map, "UserMaps/{Name}/map.tres".format({Name = map.name}))
 	EditorInterface.get_resource_filesystem().scan()
 	print_rich("[color=green]Map created successfully[/color]")
 
@@ -17,7 +18,7 @@ static func buildmap(mapinfo: gmapInfo):
 	if error != OK:
 		print("Failed to create the package file!")
 		return
-	add_directory_to_pck(packer, "res://Maps/{0}".format([mapinfo.name]), "res://Usermaps")
+	add_directory_to_pck(packer, "res://UserMaps/{0}".format([mapinfo.name]), "res://Usermaps")
 	packer.flush(true)
 
 
@@ -40,3 +41,28 @@ static func add_directory_to_pck(packer: PCKPacker, dir_path: String, pck_path: 
 		dir.list_dir_end()
 	else:
 		print("Failed to open the directory")
+
+
+static func loadMaps():
+	var resDir := DirAccess.open("res://")
+	var userDir := DirAccess.open("user://")
+	if resDir.file_exists("gmap.tres"):
+		var config: gmapConfig = load("res://gmap.tres")
+		for map in userDir.get_files_at("Maps"):
+			if map.get_extension() == ".pck":
+				ProjectSettings.load_resource_pack(
+					"user://UserMaps/{0}".format([map]), config.allowoverrite
+				)
+
+
+static func installmap(absolutepath: String):
+	var dir = DirAccess.open("user://")
+	if !dir.dir_exists("user://UserMaps"):
+		dir.make_dir("user://UserMaps")
+	var file = FileAccess.open(absolutepath, FileAccess.READ)
+	var mapfile = FileAccess.open(
+		"user://Usermaps/{0}".format([absolutepath.get_file()]), FileAccess.WRITE
+	)
+	mapfile.store_buffer(file.get_buffer(1))
+	file.close()
+	mapfile.close()

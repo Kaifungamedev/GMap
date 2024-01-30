@@ -26,3 +26,5 @@ mono_crash.*.json
 addons/plugin_refresher/*
 addons/format_on_save/*
 addons/script_panel_plus/*
+# map files
+UserMaps/*

@@ -10,13 +10,12 @@ Gmap is a map bundler to help your community make maps with the full power of th
 
 ## Use 
 using Gmap is simple 
- 1. install it from the [asset store](https://godotengine.org/asset-library/asset/2490) and enable it `Project -> Project settings -> plugins`.  
+ <!--1. install it from the [asset store](https://godotengine.org/asset-library/asset/2490) and enable it `Project -> Project settings -> plugins`.-->
+ 1. download of cone this repo copy the addons for in to you project and enable it  
  2. fill out the inputs in the lower left of the editor.
  3. Press `Create map`.
  4. edit your map. located in `Maps/<yourmapname>`.
  5. press build. 
-
-https://github.com/Kaifungamedev/Gmap/assets/110266485/dfbcaf0a-32d5-4baa-8582-7bb0e59f6b81
 
 That's it now you should see a .gmap file in the `res://` directory 
 ## integration
