@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dc2b4m1kxniqp"]
+[gd_scene load_steps=2 format=3 uid="uid://dc2b4m1kxniqp"]
 
-[ext_resource type="Script" path="res://addons/gmap/builder/MapBulder.gd" id="1_q1hxj"]
-[ext_resource type="Texture2D" uid="uid://od3ps4scpq2q" path="res://addons/gmap/icons/refresh.svg" id="2_vw7o4"]
+[ext_resource type="Script" path="res://addons/gmap/Mapbuilder/MapBulder.gd" id="1_tfadd"]
 
 [node name="MapBuilder" type="ScrollContainer"]
 custom_minimum_size = Vector2(200, 0)
@@ -11,10 +10,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
-script = ExtResource("1_q1hxj")
+script = ExtResource("1_tfadd")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -37,7 +35,6 @@ popup/item_0/id = 0
 
 [node name="Button" type="Button" parent="VBoxContainer/mapTemplate"]
 layout_mode = 2
-icon = ExtResource("2_vw7o4")
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -57,7 +54,6 @@ popup/item_0/id = 0
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-icon = ExtResource("2_vw7o4")
 
 [node name="MapInformation" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
