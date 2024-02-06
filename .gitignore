@@ -24,7 +24,8 @@ mono_crash.*.json
 
 # dev plugins
 addons/plugin_refresher/*
-addons/format_on_save/*
-addons/script_panel_plus/*
+addons/gdscript_formatter/*
+
 # map files
 UserMaps/*
+*_Template.zip
