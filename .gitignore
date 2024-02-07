@@ -29,6 +29,7 @@ addons/gdscript_formatter/*
 # map files
 UserMaps/*
 *_Template.zip
+*.gmap
 
 # other
 *.tmp
