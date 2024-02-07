@@ -15,8 +15,8 @@ var templates: Dictionary
 func _ready():
 	add_child(http, true)
 	http.timeout = 10.0
-	$VBoxContainer/mapTemplate/Button.icon = get_theme_icon(&"Reload", &"EditorIcons")
-	$VBoxContainer/HBoxContainer/Button.icon = get_theme_icon(&"Reload", &"EditorIcons")
+	$VBoxContainer/mapTemplate/Button.icon = get_theme_icon("Reload", "EditorIcons")
+	$VBoxContainer/HBoxContainer/Button.icon = get_theme_icon("Reload", "EditorIcons")
 	_on_updateMapList_pressed()
 	_on_RefreshTemplates_pressed()
 
@@ -27,33 +27,34 @@ func _get_template(template: String):
 
 func _on_create_map_pressed():
 	var template = templateSelector.get_item_text(templateSelector.selected)
-	if mapNameTextEdit.text == "" or mapAuthorTextEdit.text == "" or mapSelector.get_item_text(mapSelector.selected) == "[selected]":
+	if (
+		mapNameTextEdit.text == ""
+		or mapAuthorTextEdit.text == ""
+		or mapSelector.get_item_text(mapSelector.selected) == "[selected]"
+	):
 		printerr("Map unconfigured or not selected")
 		return
 	if templateSelector.get_item_text(templateSelector.selected) == "[select]":
 		template = "None"
 
-	gmap.creatmap(
+	await gmap.creatmap(
 		gmapInfo.new(
 			mapNameTextEdit.text,
 			mapAuthorTextEdit.text,
-
 			[versionMajor.value, versionMinor.value, versionPatch.value],
 			template
 		),
 		http
 	)
-
+	_on_updateMapList_pressed()
 
 func _on_updateMapList_pressed():
-	if not res.dir_exists("UserMaps"):
-		return
 	mapSelector.clear()
 	mapSelector.add_item("[select]")
+	if not res.dir_exists("UserMaps"):
+		return
 	for dir in res.get_directories_at("UserMaps"):
-
 		var mappath = "res://UserMaps/{0}/map.tres".format([dir])
-
 		if res.file_exists(mappath):
 			var mapinfo: gmapInfo = load(mappath)
 			mapSelector.add_item(mapinfo.name)
@@ -77,7 +78,6 @@ func _on_map_selected(index: int):
 
 
 func _on_buildmap_pressed():
-
 	if mapSelector.get_item_text(mapSelector.selected) == "[select]":
 		printerr("please select a map")
 		return
@@ -91,7 +91,6 @@ func _on_buildmap_pressed():
 
 
 func _on_build_template_pressed():
-
 	if mapSelector.get_item_text(mapSelector.selected) == "[select]":
 		printerr("please select a map")
 		return
@@ -99,7 +98,6 @@ func _on_build_template_pressed():
 		[mapSelector.get_item_text(mapSelector.get_selected_id())]
 	)
 	gmap.buildTemplate(load(mappath))
-
 
 
 func _on_RefreshTemplates_pressed():

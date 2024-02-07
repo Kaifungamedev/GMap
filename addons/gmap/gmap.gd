@@ -18,18 +18,18 @@ static func creatmap(map: gmapInfo, http: AwaitableHTTPRequest) -> Error:
 			file.close()
 			zip.open("res://TMP_template.zip")
 			for file_name in zip.get_files():
-				print(file_name)
 				var destination = extract_destination + file_name
 				var extracted_file = FileAccess.open(destination,FileAccess.WRITE)
 				extracted_file.store_buffer(zip.read_file(file_name))
 				extracted_file.close()
 		else:
 			printerr("unable to get template")
+			zip.close()
 			return ERR_CANT_OPEN
 		zip.close()
 	ResourceSaver.save(map, "UserMaps/{Name}/map.tres".format({Name = map.name}))
+	DirAccess.remove_absolute("res://TMP_template.zip")
 	EditorInterface.get_resource_filesystem().scan()
-
 	print_rich("[color=green]Map created successfully[/color]")
 	return OK
 
@@ -49,6 +49,8 @@ static func buildTemplate(TempateInfo: gmapInfo):
 	zip.open("{0}_Template.zip".format([TempateInfo.name]))
 	_add_directory_to_zip(zip, "", "res://UserMaps/{Name}/".format({Name = TempateInfo.name}))
 	zip.close()
+	EditorInterface.get_resource_filesystem().scan()
+	print_rich("[color=green]template created successfully[/color]")
 
 
 static func loadMaps():
