@@ -3,11 +3,7 @@ class_name gmap extends Node
 var pckPacker := PCKPacker.new()
 
 
-<<<<<<< HEAD
 static func creatmap(map: gmapInfo, http: AwaitableHTTPRequest) -> Error:
-=======
-static func creatmap(map: gmapInfo) -> Error:
->>>>>>> 1a9846de3f68375ac892b302b097ba1af5b7e037
 	var dir = DirAccess.open("res://")
 	var zip := ZIPReader.new()
 	var r: AwaitableHTTPRequest.HTTPResult
@@ -51,16 +47,7 @@ static func buildmap(mapinfo: gmapInfo):
 static func buildTemplate(TempateInfo: gmapInfo):
 	var zip: ZIPPacker = ZIPPacker.new()
 	zip.open("{0}_Template.zip".format([TempateInfo.name]))
-<<<<<<< HEAD
 	_add_directory_to_zip(zip, "", "res://UserMaps/{Name}/".format({Name = TempateInfo.name}))
-=======
-	_add_directory_to_zip(
-		zip,
-		"UserMaps/{Name}/".format({Name = TempateInfo.name}),
-		"res://",
-		"UserMaps/{Name}/".format({Name = TempateInfo.name})
-	)
->>>>>>> 1a9846de3f68375ac892b302b097ba1af5b7e037
 	zip.close()
 
 
@@ -109,30 +96,14 @@ static func _add_directory_to_pck(packer: PCKPacker, dir_path: String, pck_path:
 	else:
 		print("Failed to open the directory")
 
-
-<<<<<<< HEAD
 static func _add_directory_to_zip(zip_packer, dir: String, base_dir: String = ""):
-=======
-static func _add_directory_to_zip(
-	zip_packer, dir: String, base_dir: String = "", replacestring = ""
-):
-	prints(dir, base_dir, replacestring)
->>>>>>> 1a9846de3f68375ac892b302b097ba1af5b7e037
 	var dir_contents = DirAccess.open(base_dir + dir)
 	dir_contents.list_dir_begin()
 	var file_name = dir_contents.get_next()
 	while file_name != "":
 		if dir_contents.current_is_dir():
-<<<<<<< HEAD
 			_add_directory_to_zip(zip_packer, dir + file_name + "/", base_dir)
 		else:
-			zip_packer.start_file(dir + file_name)
-=======
-			_add_directory_to_zip(zip_packer, dir + file_name + "/", base_dir, replacestring)
-		else:
-			prints(dir + file_name, (dir + file_name).replace(replacestring, ""))
-			zip_packer.start_file((dir + file_name).replace(replacestring, ""))
->>>>>>> 1a9846de3f68375ac892b302b097ba1af5b7e037
 			zip_packer.write_file((base_dir + dir + file_name).to_utf8_buffer())
 			zip_packer.close_file()
 		file_name = dir_contents.get_next()
